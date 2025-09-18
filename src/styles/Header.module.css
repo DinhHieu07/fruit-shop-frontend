@@ -1,0 +1,74 @@
+.header {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    width: 70%;
+    height: 60%;
+}
+
+.logo {
+    display: flex;
+    font-size: 32px;
+    margin-left: 10px;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin-left: 250px;
+}
+
+.searchInput {
+    width: 100%;
+    height: 25px;
+    padding: 5px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+}
+
+.searchButton {
+    width: 15%;
+    height: 35px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hotLineContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+    margin-right: 10px;
+}
+
+.hotLine {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.hotLineIcon {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.hotLineText {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.space {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.timeWork {
+    font-size: 16px;
+    margin-left: 5px;
+}

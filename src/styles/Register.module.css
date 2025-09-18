@@ -1,0 +1,117 @@
+.registerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    min-height: 80vh;
+    padding: 24px;
+    background: radial-gradient(1000px 600px at 10% 10%, #e8f6ec 0%, #f5fbf7 35%, #f3f3f3 100%);
+}
+
+.registerFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px;
+    background-color: #4CAF50;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.registerTitle {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 28px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.registerInput {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    border: 1px solid #d1e7d8;
+    background: #ffffff;
+    outline: none;
+}
+
+.registerInput:focus {
+    border-color: #2f9e44;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap: 10px;
+}
+
+.registerButton {
+    width: 35%;
+    padding: 12px 16px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 0;
+    background: linear-gradient(180deg, #58d26f 0%, #4CAF50 100%);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.15s ease;
+    box-shadow: 0 6px 14px rgba(5, 41, 6, 0.35);
+}
+
+.registerButton:hover {
+    transform: translateY(-1px);
+}
+
+.registerButton:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(76, 175, 80, 0.35);
+}
+
+.registerLoginContainer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    color: white;
+}
+
+.registerLoginText {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    color: white;
+    margin-right: 10px;
+}
+
+.registerLoginLink {
+    text-decoration: none;
+    color: #003cff98;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
