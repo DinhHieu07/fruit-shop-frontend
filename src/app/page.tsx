@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     setFullname(localStorage.getItem("fullname") || "");
-    const token = Cookies.get("accessToken");
+    const token = localStorage.getItem("accessToken");
     if (token) {
       setIsLoggedIn(true);
     }

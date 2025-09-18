@@ -8,12 +8,14 @@ export const apiLogin = async (email: string, password: string) => {
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify({ email, password })
         });
         const data = await response.json();
 
         if (data.success === true) {
             console.log(data);
+            localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("fullname", data.fullname);
             window.location.href = "/";
         } else {

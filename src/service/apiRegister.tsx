@@ -7,6 +7,7 @@ export const apiRegister = async (fullname: string, phone: string, email: string
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify({ fullname, phone, email, password, address })
         });
         const data = await response.json();
