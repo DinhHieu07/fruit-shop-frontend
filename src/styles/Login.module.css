@@ -116,3 +116,17 @@
     cursor: pointer;
     border-radius: 5px;
 }
+
+.loginOrText {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.loginGoogleContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

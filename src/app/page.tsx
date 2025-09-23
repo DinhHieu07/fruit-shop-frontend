@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { apiLogout } from "../service/apiLogout";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,6 +67,7 @@ export default function Home() {
           )}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

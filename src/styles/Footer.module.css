@@ -1,0 +1,51 @@
+.footer {
+    width: 70%;
+    height: 100px;
+    background-color: #353535;
+    flex-direction: row;
+    display: flex;
+}
+
+.footerContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.footerContainer {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    color: white;
+}
+
+.footerAddress, .footerPhone, .footerEmail, .footerFacebook, .footerZalo, .footerWebsite {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.footerAddressText, .footerPhoneText, .footerEmailText, .footerFacebookText, .footerZaloText, .footerWebsiteText {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.footerFacebookLink, .footerWebsiteLink {
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
