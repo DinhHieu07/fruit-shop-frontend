@@ -9,13 +9,18 @@ import { apiGoogleLogin } from "../service/apiGoogleLogin";
 export default function LoginClient() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const checkInfo = () => {
         if (email === "" || password === "") {
             alert("Vui lòng nhập đầy đủ thông tin");
-            window.location.href = "/login";
             return false;
         }
+
+        const emailRegex = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
+        if (!emailRegex.test(email)) {
+            alert("Vui lòng nhập đúng định dạng email (ví dụ: abc@gmail.com)");
+            return false;
+        }
+
         return true;
     }
 
@@ -27,7 +32,6 @@ export default function LoginClient() {
         } catch (error) {
             console.log(error);
             alert("Đăng nhập thất bại");
-            window.location.href = "/login";
         }
     }
     return (

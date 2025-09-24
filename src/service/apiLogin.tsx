@@ -20,11 +20,9 @@ export const apiLogin = async (email: string, password: string) => {
             window.location.href = "/";
         } else {
             alert(data.message);
-            window.location.href = "/login";
         }
     } catch (error) {
         console.log(error);
         alert("Đăng nhập thất bại");
-        window.location.href = "/login";
     }
 }

@@ -17,11 +17,9 @@ export const apiRegister = async (fullname: string, phone: string, email: string
             window.location.href = "/login";
         } else {
             alert(data.message);
-            window.location.href = "/register";
         }
     } catch (error) {
         console.log(error);
         alert("Đăng ký thất bại");
-        window.location.href = "/register";
     }
 }

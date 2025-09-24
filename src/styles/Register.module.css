@@ -107,6 +107,8 @@
 }
 
 .registerLoginLink {
+    align-items: center;
+    display: flex;
     text-decoration: none;
     color: #003cff98;
     font-weight: bold;
