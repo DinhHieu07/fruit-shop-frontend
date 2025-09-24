@@ -1,73 +1,24 @@
-"use client";
-import styles from "../styles/Home.module.css";
-import Link from "next/link";
-import Image from "next/image";
-import Header from "../components/Header";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { apiLogout } from "../service/apiLogout";
-import Footer from "../components/Footer";
+import type { Metadata } from "next";
+import HomeClient from "../components/HomeClient";
+
+export const metadata: Metadata = {
+  title: "Trang chủ",
+  description: "Khám phá các loại trái cây tươi ngon tại Thanh Hoa Quả. Chúng tôi cung cấp đa dạng các loại hoa quả chất lượng cao với giá cả hợp lý và dịch vụ giao hàng tận nơi.",
+  keywords: ["trái cây tươi", "hoa quả", "cửa hàng trái cây", "mua trái cây online", "giao hàng tận nơi", "trái cây nhập khẩu"],
+  openGraph: {
+    title: "Trang chủ - Thanh Hoa Quả",
+    description: "Khám phá các loại trái cây tươi ngon tại Thanh Hoa Quả",
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Thanh Hoa Quả - Trang chủ',
+      },
+    ],
+  },
+};
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [fullname, setFullname] = useState<string | null>("");
-
-  useEffect(() => {
-    setFullname(localStorage.getItem("fullname") || "");
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await apiLogout();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  return (
-    <div className={styles.container}>
-      <Header />
-      <main className={styles.main}>
-        <div className={styles.logoStore}>
-          <Image src="/logo.png" alt="logo" className={styles.logo} width={100} height={100} />
-        </div>
-        <div className={styles.menuContainer}>
-          <ul className={styles.menu}>
-            <li className={styles.menuItem}>
-              <Link href="/" className={styles.menuLink}>Sản phẩm</Link>
-            </li>
-            <li className={styles.menuItem}>
-              <Link href="/" className={styles.menuLink}>Tin tức</Link>
-            </li>
-            <li className={styles.menuItem}>
-              <Link href="/" className={styles.menuLink}>Mùa trái cây thế giới</Link>
-            </li>
-            <li className={styles.menuItem}>
-              <Link href="/" className={styles.menuLink}>Giới thiệu</Link>
-            </li>
-            <li className={styles.menuItem}>
-              <Link href="/" className={styles.menuLink}>Liên hệ</Link>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.loginContainer}>
-          {isLoggedIn ? (
-            <div className={styles.containerLogin}>
-              <div className={styles.profileContainer}>
-                <span className={styles.profileText}>Xin chào, {fullname}</span>
-              </div>
-              <div onClick={handleLogout} className={styles.logoutText}>Đăng xuất</div>
-            </div>
-          ) : (
-            <Link href="/login" className={styles.loginLink}>Đăng nhập</Link>
-          )}
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+  return <HomeClient />;
 }

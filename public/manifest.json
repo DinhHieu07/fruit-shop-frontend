@@ -1,0 +1,25 @@
+{
+  "name": "Thanh Hoa Quả - Cửa hàng trái cây tươi ngon",
+  "short_name": "Thanh Hoa Quả",
+  "description": "Cửa hàng chuyên cung cấp các loại trái cây tươi ngon, chất lượng cao với giá cả hợp lý",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "shopping", "business"],
+  "lang": "vi"
+}
