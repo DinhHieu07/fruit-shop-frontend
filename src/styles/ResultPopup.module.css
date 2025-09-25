@@ -1,0 +1,79 @@
+.popup {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: linear-gradient(135deg, #69f36e 0%, #45a049 100%);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(132, 250, 136, 0.3);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 300px;
+    max-width: 500px;
+    height: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+}
+
+.popup.show {
+    top: 20px;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+.message {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    display: block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    position: absolute;
+    top: 20px;
+    right: 12px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.closeButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.closeButton:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
+}
+
+.closeButton:focus {
+    outline: none;
+}
+
+.closeIcon {
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+    transition: all 0.2s ease;
+}

@@ -25,7 +25,7 @@ export default function Navbar() {
     }
     return (
         <div className={styles.navbar}>
-            <h1 className={styles.logoStore}>
+            <h1 className={styles.logoStore} onClick={() => window.location.href = "/"}>
                 <Image src="/logo.png" alt="logo" className={styles.logo} width={100} height={100} />
             </h1>
             <nav className={styles.menuContainer}>

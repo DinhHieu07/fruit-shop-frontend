@@ -1,26 +1,235 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/AdminProduct.module.css";
 import Footer from "./Footer";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import { PlusIcon, SearchIcon, XIcon } from "lucide-react";
+import { apiAddCategory, apiGetCategories } from "../service/apiCategory";
+import { apiAddProduct, apiGetProducts, apiDeleteProduct, apiEditProduct } from "../service/apiProduct";
+import Resultpopup from "./ResultPopup";
+import Select from "react-select";
+import { format, parseISO } from "date-fns";
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css';
+import { MdEdit, MdDelete } from "react-icons/md";
+
+interface Category {
+    _id: string;
+    name: string;
+}
+
+interface Product {
+    _id: string;
+    name: string;
+    price: number;
+    unit: string;
+    quantity: number;
+    createdAt: string;
+    category: string;
+    image: string;
+    note: string;
+    stock: number;
+    updatedAt: string;
+}
 
 export default function AdminProduct() {
     const [isAddProduct, setIsAddProduct] = useState(false);
     const [isAddCategory, setIsAddCategory] = useState(false);
+    const [isDeleteProduct, setIsDeleteProduct] = useState(false);
+    const [isEditProduct, setIsEditProduct] = useState(false);
+    const [idProduct, setIdProduct] = useState("");
+    const [nameCategory, setNameCategory] = useState("");
+    const [isAddCategoryPopup, setIsAddCategoryPopup] = useState(false);
+    const [isAddProductPopup, setIsAddProductPopup] = useState(false);
+    const [isDeleteProductPopup, setIsDeleteProductPopup] = useState(false);
+    const [isEditProductPopup, setIsEditProductPopup] = useState(false);
+    const [message, setMessage] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [nameProduct, setNameProduct] = useState("");
+    const [priceProduct, setPriceProduct] = useState("");
+    const [unitProduct, setUnitProduct] = useState("");
+    const [quantityProduct, setQuantityProduct] = useState("");
+    const [dateCreateProduct, setDateCreateProduct] = useState("");
+    const [categoryProduct, setCategoryProduct] = useState("");
+    const [imageProduct, setImageProduct] = useState("");
+    const [noteProduct, setNoteProduct] = useState("");
+    const [products, setProducts] = useState([]);
+    const [searchProduct, setSearchProduct] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    const transformedCategories = categories.map((category: Category) => ({
+        value: category._id,
+        label: category.name,
+    }));
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const categories = await apiGetCategories();
+            setCategories(categories);
+        }
+        getCategories();
+    }, []);
+
+    useEffect(() => {
+        const getProducts = async () => {
+            const products = await apiGetProducts();
+            setProducts(products);
+            setFilteredProducts(products);
+        }
+        getProducts();
+    }, []);
+
     const handleAddProduct = () => {
         setIsAddProduct(true);
     }
+
     const handleCloseAddProduct = () => {
         setIsAddProduct(false);
     }
+
     const handleAddCategory = () => {
         setIsAddCategory(true);
     }
+
     const handleCloseAddCategory = () => {
         setIsAddCategory(false);
     }
+
+    const handleAddCategoryPopup = async (name: string) => {
+        if (name === "") {
+            setIsAddCategoryPopup(true);
+            setMessage("Vui lòng nhập tên danh mục");
+            return;
+        }
+        const message = await apiAddCategory(name);
+        setIsAddCategoryPopup(true);
+        setMessage(message);
+        setIsAddCategory(false);
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
+    const handleCloseAddCategoryPopup = () => {
+        setIsAddCategoryPopup(false);
+    }
+
+    const handleCloseAddProductPopup = () => {
+        setIsAddProductPopup(false);
+    }
+
+    const handleCloseDeleteProductPopup = () => {
+        setIsDeleteProductPopup(false);
+    }
+
+    const handleCloseEditProductPopup = () => {
+        setIsEditProductPopup(false);
+    }
+
+    const handleAddProductPopup = async () => {
+        const validationFields = [
+            { value: nameProduct, message: "Vui lòng nhập tên sản phẩm" },
+            { value: priceProduct, message: "Vui lòng nhập giá sản phẩm" },
+            { value: unitProduct, message: "Vui lòng nhập đơn vị sản phẩm" },
+            { value: quantityProduct, message: "Vui lòng nhập số lượng sản phẩm" },
+            { value: dateCreateProduct, message: "Vui lòng nhập ngày tạo sản phẩm" },
+            { value: categoryProduct, message: "Vui lòng chọn danh mục sản phẩm" },
+            { value: imageProduct, message: "Vui lòng nhập hình ảnh sản phẩm" },
+        ];
+
+        for (const field of validationFields) {
+            if (field.value === "") {
+                setIsAddProductPopup(true);
+                setMessage(field.message);
+                return;
+            }
+        }
+
+        if (isNaN(Number(priceProduct)) || Number(priceProduct) <= 0) {
+            setIsAddProductPopup(true);
+            setMessage("Giá sản phẩm không hợp lệ");
+            return;
+        }
+
+        if (isNaN(Number(quantityProduct)) || Number(quantityProduct) <= 0) {
+            setIsAddProductPopup(true);
+            setMessage("Số lượng sản phẩm không hợp lệ");
+            return;
+        }
+
+
+        if (!/^https?:\/\/.*\.(png|jpg|jpeg|gif|webp|svg)(\?.*)?$/i.test(imageProduct)) {
+            setIsAddProductPopup(true);
+            setMessage("Đường dẫn ảnh không hợp lệ");
+            return;
+        }
+
+        const message = await apiAddProduct(
+            nameProduct,
+            priceProduct,
+            unitProduct,
+            quantityProduct,
+            dateCreateProduct,
+            categoryProduct,
+            imageProduct,
+            noteProduct
+        );
+        setIsAddProductPopup(true);
+        setMessage(message);
+        setIsAddProduct(false);
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
+    useEffect(() => {
+        const results = products.filter((product: Product) => product.name.toLowerCase().includes(searchProduct.toLowerCase()));
+        setFilteredProducts(results);
+    }, [searchProduct, products]);
+
+    const handleEditProduct = async (id: string) => {
+        setIsEditProduct(true);
+        setIdProduct(id);
+    }
+
+    const handleDeleteProduct = async (id: string) => {
+        setIsDeleteProduct(true);
+        setIdProduct(id);
+    }
+
+    const handleDeleteProductPopup = async (id: string) => {
+        const message = await apiDeleteProduct(id);
+        setIsDeleteProductPopup(true);
+        setMessage(message);
+        setIsDeleteProduct(false);
+        setIdProduct("");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
+    const handleCloseDeleteProduct = () => {
+        setIsDeleteProduct(false);
+        setIdProduct("");
+    }
+
+    const handleCloseEditProduct = () => {
+        setIsEditProduct(false);
+        setIdProduct("");
+    }
+
+    const handleEditProductPopup = async (id: string) => {
+        const message = await apiEditProduct(id, nameProduct, priceProduct, unitProduct, quantityProduct, categoryProduct, imageProduct, noteProduct);
+        setIsEditProductPopup(true);
+        setMessage(message);
+        setIsEditProduct(false);
+        setIdProduct("");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
     return (
         <div className={styles.adminProductContainer}>
             <Header />
@@ -46,31 +255,48 @@ export default function AdminProduct() {
                 </div>
                 <div className={styles.adminProductSearchContainer}>
                     <SearchIcon className={styles.adminProductSearchIcon} />
-                    <input type="text" placeholder="Tìm kiếm sản phẩm" className={styles.adminProductSearchInput} />
+                    <input type="text" placeholder="Tìm kiếm sản phẩm" className={styles.adminProductSearchInput} value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)} />
                 </div>
                 <div className={styles.adminProductTableContainer}>
                     <table className={styles.adminProductTable}>
                         <thead className={styles.adminProductTableHead}>
                             <tr className={styles.adminProductTableRow}>
                                 <th className={styles.adminProductTableHeadCell}>Tên sản phẩm</th>
-                                <th className={styles.adminProductTableHeadCell}>Giá</th>
+                                <th className={styles.adminProductTableHeadCell}>Giá (1kg)</th>
+                                <th className={styles.adminProductTableHeadCell}>Đơn vị</th>
                                 <th className={styles.adminProductTableHeadCell}>Số lượng</th>
                                 <th className={styles.adminProductTableHeadCell}>Ngày tạo</th>
                                 <th className={styles.adminProductTableHeadCell}>Ngày cập nhật</th>
                                 <th className={styles.adminProductTableHeadCell}>Tồn kho</th>
                                 <th className={styles.adminProductTableHeadCell}>Ghi chú</th>
+                                <th className={styles.adminProductTableHeadCell}></th>
                             </tr>
                         </thead>
                         <tbody className={styles.adminProductTableBody}>
-                            <tr className={styles.adminProductTableRow}>
-                                <td className={styles.adminProductTableCell}>Táo</td>
-                                <td className={styles.adminProductTableCell}>100.000</td>
-                                <td className={styles.adminProductTableCell}>100</td>
-                                <td className={styles.adminProductTableCell}>2025-01-01</td>
-                                <td className={styles.adminProductTableCell}>2025-01-01</td>
-                                <td className={styles.adminProductTableCell}>100</td>
-                                <td className={styles.adminProductTableCell}>Không có</td>
-                            </tr>
+                            {filteredProducts.map((product: Product) => (
+                                <tr key={product._id} className={styles.adminProductTableRow}>
+                                    <td className={styles.adminProductTableCell}>{product.name}</td>
+                                    <td className={styles.adminProductTableCell}>{product.price}</td>
+                                    <td className={styles.adminProductTableCell}>{product.unit}</td>
+                                    <td className={styles.adminProductTableCell}>{product.quantity}</td>
+                                    <td className={styles.adminProductTableCell}>{format(parseISO(product.createdAt), "dd/MM/yyyy")}</td>
+                                    <td className={styles.adminProductTableCell}>{format(parseISO(product.updatedAt), "dd/MM/yyyy")}</td>
+                                    <td className={styles.adminProductTableCell}>{product.stock}</td>
+                                    <td className={styles.adminProductTableCell}>
+                                        <Tippy content={product.note || "Không"} appendTo={() => document.body} maxWidth={220}>
+                                            <div className={styles.adminProductTableCellNote}>{product.note || "Không"}</div>
+                                        </Tippy>
+                                    </td>
+                                    <td className={styles.adminProductTableCellActions}>
+                                        <button className={styles.adminProductTableCellButton} title="Chỉnh sửa" onClick={() => handleEditProduct(product._id)}>
+                                            <MdEdit className={styles.adminProductTableCellButtonIcon} />
+                                        </button>
+                                        <button className={styles.adminProductTableCellButton} title="Xóa" onClick={() => handleDeleteProduct(product._id)}>
+                                            <MdDelete className={styles.adminProductTableCellButtonIcon} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -86,15 +312,22 @@ export default function AdminProduct() {
                     </div>
                     <div className={styles.adminProductAddProductFormContainer}>
                         <form className={styles.adminProductAddProductForm}>
-                            <input type="text" placeholder="Tên sản phẩm" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Giá" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Đơn vị" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Số lượng" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Ngày tạo" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Loại trái cây" className={styles.adminProductAddProductFormInput} />
-                            <input type="text" placeholder="Ghi chú" className={styles.adminProductAddProductFormInput} />
+                            <input type="text" placeholder="Tên sản phẩm" className={styles.adminProductAddProductFormInput} value={nameProduct} onChange={(e) => setNameProduct(e.target.value)} />
+                            <input type="text" placeholder="Giá (VND) / 1kg" className={styles.adminProductAddProductFormInput} value={priceProduct} onChange={(e) => setPriceProduct(e.target.value)} />
+                            <input type="text" placeholder="Đơn vị (kg, lạng)" className={styles.adminProductAddProductFormInput} value={unitProduct} onChange={(e) => setUnitProduct(e.target.value)} />
+                            <input type="text" placeholder="Số lượng (quả, chùm)" className={styles.adminProductAddProductFormInput} value={quantityProduct} onChange={(e) => setQuantityProduct(e.target.value)} />
+                            <input type="date" placeholder="Ngày tạo" className={styles.adminProductAddProductFormInput} value={dateCreateProduct} onChange={(e) => setDateCreateProduct(e.target.value)} />
+                            <Select
+                                value={transformedCategories.find(cat => cat.value === categoryProduct)}
+                                id="fruits"
+                                options={transformedCategories}
+                                placeholder="Chọn danh mục"
+                                onChange={(selectedOption) => setCategoryProduct(selectedOption?.value || "")}
+                            />
+                            <input type="text" placeholder="Hình ảnh (url)" className={styles.adminProductAddProductFormInput} value={imageProduct} onChange={(e) => setImageProduct(e.target.value)} />
+                            <input type="text" placeholder="Ghi chú" className={styles.adminProductAddProductFormInput} value={noteProduct} onChange={(e) => setNoteProduct(e.target.value)} />
                         </form>
-                        <button className={styles.adminProductAddProductFormButton}>Thêm sản phẩm</button>
+                        <button className={styles.adminProductAddProductFormButton} onClick={handleAddProductPopup}>Thêm sản phẩm</button>
                     </div>
                 </div>
             )}
@@ -107,12 +340,62 @@ export default function AdminProduct() {
                         </button>
                     </div>
                     <div className={styles.adminProductAddCategoryFormContainer}>
-                        <form className={styles.adminProductAddCategoryForm}>
-                            <input type="text" placeholder="Tên danh mục" className={styles.adminProductAddCategoryFormInput} />
-                        </form>
-                        <button className={styles.adminProductAddCategoryFormButton}>Thêm danh mục</button>
+                        <input type="text" placeholder="Tên danh mục" className={styles.adminProductAddCategoryFormInput} value={nameCategory} onChange={(e) => setNameCategory(e.target.value)} />
+                        <button className={styles.adminProductAddCategoryFormButton} onClick={() => handleAddCategoryPopup(nameCategory)}>Thêm danh mục</button>
                     </div>
                 </div>
+            )}
+            {isDeleteProduct && (
+                <div className={styles.adminDeleteProductOverlay}>
+                    <div className={styles.adminDeleteProductContainer}>
+                        <h1 className={styles.adminDeleteProductTitle}>Bạn có chắc chắn muốn xóa sản phẩm này không?</h1>
+                    </div>
+                    <div className={styles.adminDeleteProductFormContainer}>
+                        <button className={styles.adminDeleteProductFormButton} onClick={() => handleDeleteProductPopup(idProduct)}>Có</button>
+                        <button className={styles.adminDeleteProductFormButton} onClick={handleCloseDeleteProduct}>Không</button>
+                    </div>
+                </div>
+            )}
+            {isEditProduct && (
+                <div className={styles.adminEditProductOverlay}>
+                    <div className={styles.adminEditProductContainer}>
+                        <h1 className={styles.adminEditProductTitle}>Chỉnh sửa sản phẩm</h1>
+                    </div>
+                    <div className={styles.adminEditProductFormContainer}>
+                        <input type="text" placeholder="Tên sản phẩm" className={styles.adminEditProductFormInput} value={nameProduct} onChange={(e) => setNameProduct(e.target.value)} />
+                        <input type="text" placeholder="Giá (VND) / 1kg" className={styles.adminEditProductFormInput} value={priceProduct} onChange={(e) => setPriceProduct(e.target.value)} />
+                        <input type="text" placeholder="Đơn vị (kg, lạng)" className={styles.adminEditProductFormInput} value={unitProduct} onChange={(e) => setUnitProduct(e.target.value)} />
+                        <input type="text" placeholder="Số lượng (quả, chùm)" className={styles.adminEditProductFormInput} value={quantityProduct} onChange={(e) => setQuantityProduct(e.target.value)} />
+                        <div className={styles.wrapper}>
+                            <Select
+                                value={transformedCategories.find(cat => cat.value === categoryProduct)}
+                                id="fruits"
+                                options={transformedCategories}
+                                placeholder="Chọn danh mục"
+                                onChange={(selectedOption) => setCategoryProduct(selectedOption?.value || "")}
+                                classNamePrefix="my-select"
+                            />
+                        </div>
+                        <input type="text" placeholder="Hình ảnh (url)" className={styles.adminEditProductFormInput} value={imageProduct} onChange={(e) => setImageProduct(e.target.value)} />
+                        <input type="text" placeholder="Ghi chú" className={styles.adminEditProductFormInput} value={noteProduct} onChange={(e) => setNoteProduct(e.target.value)} />
+                    </div>
+                    <div className={styles.adminEditProductFormButtonContainer}>
+                        <button className={styles.adminEditProductFormButton} onClick={() => handleEditProductPopup(idProduct)}>Chỉnh sửa</button>
+                        <button className={styles.adminEditProductFormButton} onClick={handleCloseEditProduct}>Đóng</button>
+                    </div>
+                </div>
+            )}
+            {isAddCategoryPopup && (
+                <Resultpopup message={message} show={isAddCategoryPopup} onClose={handleCloseAddCategoryPopup} />
+            )}
+            {isAddProductPopup && (
+                <Resultpopup message={message} show={isAddProductPopup} onClose={handleCloseAddProductPopup} />
+            )}
+            {isDeleteProductPopup && (
+                <Resultpopup message={message} show={isDeleteProductPopup} onClose={handleCloseDeleteProductPopup} />
+            )}
+            {isEditProductPopup && (
+                <Resultpopup message={message} show={isEditProductPopup} onClose={handleCloseEditProductPopup} />
             )}
         </div>
     )
