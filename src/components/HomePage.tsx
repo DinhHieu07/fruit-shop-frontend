@@ -9,9 +9,23 @@ interface DecodedToken {
   role: string;
 }
 
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  unit: string;
+  quantity: number;
+  createdAt: string;
+  category: string;
+  images: string[];
+  note: string;
+  stock: number;
+  updatedAt: string;
+}
+
 const HomePage = () => {
   const [role, setRole] = useState<string | null>(null);
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");

@@ -27,7 +27,7 @@ interface Product {
     quantity: number;
     createdAt: string;
     category: string;
-    image: string;
+    images: string[];
     note: string;
     stock: number;
     updatedAt: string;
