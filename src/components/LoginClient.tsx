@@ -35,9 +35,9 @@ export default function LoginClient() {
         }
     }
     return (
-        <div className={styles.loginContainer}>
+        <section className={styles.loginContainer}>
             <div className={styles.loginFormContainer}>
-                <h1 className={styles.loginTitle}>Đăng nhập</h1>
+                <h2 className={styles.loginTitle}>Đăng nhập</h2>
                 <form className={styles.loginForm} onSubmit={handleLogin}>
                     <div className={styles.loginFormGroup}>
                         <label htmlFor="email" className={styles.loginLabel}>Email</label>
@@ -86,6 +86,6 @@ export default function LoginClient() {
                     <Link href="/register" className={styles.loginRegisterLink}>Đăng ký</Link>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }

@@ -1,0 +1,531 @@
+.productDetailContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.productDetailMain {
+    width: 70%;
+    min-height: 100%;
+    flex-direction: row;
+    display: flex;
+}
+
+.productDetailMainImage {
+    width: 50%;
+    height: 350px;
+    position: relative;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+.productImageDetail {
+    object-fit: cover;
+}
+
+.productDetailMainContent {
+    width: 40%;
+    height: 100%;
+    padding-left: 50px;
+}
+
+.productDetailBackButton {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+}
+
+.productDetailBackButton:hover {
+    background-color: #207e25;
+}
+
+.productDetailMainContentName {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.productDetailMainContentPrice {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.productDetailMainContentNote {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.productDetailMainContentContact {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    font-style: italic;
+}
+
+.productDetailLine {
+    width: 70%;
+    margin-bottom: 20px;
+    background-color: #333;
+    border: 1px solid #a3a3a3;
+}
+
+.productDetailComment {
+    width: 70%;
+    height: 100%;
+}
+
+.productDetailCommentHeader {
+    width: 100%;
+    height: 100%;
+}
+
+.productDetailCommentTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.productDetailCommentDescription {
+    font-size: 16px;
+    color: #333;
+}
+
+.productDetailCommentStar {
+    width: 70%;
+    height: 100%;
+    margin-top: 20px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.productDetailCommentStarItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    width: 40%;
+    background: linear-gradient(135deg, #b3b3b3 0%, #e9ecef 100%);
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+}
+
+.productDetailCommentStarItemText {
+    font-size: 124px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.productDetailCommentStarLine {
+    width: 70%;
+    margin-bottom: 20px;
+    background-color: #333;
+    border: 1px solid #a3a3a3;
+}
+
+.productDetailCommentStarItemIcon {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.productDetailCommentStarNumber {
+    font-size: 16px;
+    color: #333;
+}
+
+.productDetailCommentEachStarNumber {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.productDetailCommentEachStarNumberItemContainer {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+}
+
+.productDetailCommentEachStarNumberItem {
+    color: #333;
+    width: 8%;
+    align-self: center;
+}
+
+.productDetailCommentEachStarNumberItemBar {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 8px;
+    margin-right: 20px;
+    align-self: center;
+    overflow: hidden;
+}
+
+.productDetailCommentEachStarNumberItemBarInner {
+    height: 100%;
+    background: linear-gradient(90deg, #FFD54F, #FFA000);
+    border-radius: 8px;
+}
+
+.productDetailCommentEachStarNumberItemBarPercentage {
+    font-size: 16px;
+    color: #333;
+    width: 10%;
+    align-self: center;
+}
+
+.productDetailCommentStarOption {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.productDetailCommentOption {
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+}
+
+.productDetailCommentOption:hover {
+    border: 1px solid #207e25;
+    box-shadow: 0 6px 14px rgba(76, 175, 80, 0.35);
+}
+
+.productDetailCommentOptionText {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.productDetailCommentOptionActive {
+    color: #4CAF50;
+    border: 1px solid #207e25;
+    box-shadow: 0 6px 14px rgba(76, 175, 80, 0.35);
+    background-color: #4CAF50;
+}
+
+.productDetailCommentContainer {
+    border: 1px solid #333;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 70%;
+    height: 100%;
+}
+
+.productDetailCommentReply {
+    width: calc(70% - 50px);
+    margin-left: 50px;
+}
+
+.productDetailCommentItem {
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 20px 20px;
+    flex-direction: row;
+    display: flex;
+}
+
+.productDetailCommentItemHeader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productDetailCommentItemHeaderAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.productDetailCommentItemRating {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 30px;
+}
+
+.productDetailCommentItemHeaderName {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.productDetailCommentItemHeaderDate {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.productDetailCommentItemHeaderRating {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.productDetailCommentContent {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px 20px 20px 20px;
+}
+
+.productDetailCommentContentText {
+    font-size: 16px;
+    color: #333;
+}
+
+.productDetailCommentItemLine {
+    width: 95%;
+    height: 1px;
+    background-color: #a3a3a3;
+    margin-bottom: 20px;
+    align-self: center;
+    display: flex;
+    justify-self: center;
+}
+
+.productDetailCommentItemReply {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 20px 20px 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.productDetailCommentItemReplyIcon {
+    font-size: 16px;
+    color: #333;
+    margin-right: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.productDetailCommentItemReplyIcon:hover {
+    color: #4CAF50;
+}
+
+.productDetailCommentItemReplyIconActive {
+    color: #4CAF50;
+}
+
+.productDetailCommentItemReplyText {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.productDetailCommentItemReplyText:hover {
+    color: #4CAF50;
+}
+
+.productDetailCommentReplyBar {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 20px 20px 20px;
+}
+
+.productDetailCommentReplyBarInput {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #a3a3a3;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.productDetailCommentReplyBarButton {
+    min-width: 100px;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    margin-right: 10px;
+}
+
+.productDetailCommentReplyBarButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.productDetailCommentReplyBarButtonPrimary {
+    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    color: #fff;
+}
+
+.productDetailCommentReplyBarButtonPrimary:hover {
+    filter: brightness(1.02);
+}
+
+.productDetailCommentReplyBarButtonSecondary {
+    background: transparent;
+    color: #2E7D32;
+    border: 1px solid #2E7D32;
+}
+
+.productDetailCommentReplyBarButtonSecondary:hover {
+    background: rgba(76, 175, 80, 0.08);
+}
+
+.productDetailCommentLine {
+    margin-top: 20px;
+    width: 70%;
+    height: 1px;
+    background-color: #a3a3a3;
+    margin-bottom: 20px;
+    align-self: center;
+    display: flex;
+    justify-self: center;
+}
+
+.productDetailCommentSelf {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 1px solid #333;
+    border-radius: 14px;
+    padding: 16px 0 20px 0;
+    margin-bottom: 24px;
+}
+
+.productDetailCommentSelfHeader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.productDetailCommentSelfTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    padding: 0 20px;
+    margin: 8px 0 0 0;
+}
+
+.productDetailCommentSelfDescription {
+    font-size: 16px;
+    color: #4b5563;
+    padding: 0 20px;
+}
+
+.productDetailCommentSelfRating {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f59e0b;
+    padding: 0 20px;
+    display: flex;
+    gap: 4px;
+}
+
+.starIcon {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 24px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.starFilled {
+    color: #f59e0b;
+}
+
+.starEmpty {
+    color: #d1d5db;
+}
+
+.starIcon:hover {
+    transform: scale(1.1);
+}
+
+.productDetailCommentSelfRatingInput {
+    width: calc(100% - 65px);
+    min-height: 44px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 0 20px;
+    outline: none;
+    transition: box-shadow .18s ease, border-color .18s ease;
+}
+.productDetailCommentSelfRatingInput:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+.productDetailCommentSelfRatingButton {
+    align-self: flex-start;
+    margin: 8px 20px 0 20px;
+    min-width: 120px;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(76, 175, 80, 0.30);
+}
+
+.productDetailCommentSelfRatingButton:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.02);
+}

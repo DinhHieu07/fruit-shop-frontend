@@ -7,15 +7,15 @@ import Navbar from "./Navbar";
 
 export default function HomeClient() {
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <Header />
-      <main className={styles.main}>
+      <div className={styles.main}>
         <Navbar />
         <section className={styles.homePageContainer}>
           <HomePage />
         </section>
-      </main>
+      </div>
       <Footer />
-    </div>
+    </section>
   );
 }

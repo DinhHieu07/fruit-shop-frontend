@@ -24,5 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default function Products() {
-    return <AdminProduct />;
+    return (
+        <>
+            <main className="w-[100%]">
+                <h1 className="sr-only">Quản lý sản phẩm - Thanh Hoa Quả</h1>
+                <AdminProduct />
+            </main>
+        </>
+    );
 }

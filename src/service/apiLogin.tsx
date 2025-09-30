@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const apiLogin = async (email: string, password: string) => {
@@ -17,6 +16,8 @@ export const apiLogin = async (email: string, password: string) => {
             console.log(data);
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("fullname", data.fullname);
+            localStorage.setItem("user_id", data.user_id);
+            localStorage.setItem("avatar", data.avatar);
             window.location.href = "/";
         } else {
             alert(data.message);

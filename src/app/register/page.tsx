@@ -24,5 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default function Register() {
-    return <RegisterClient />;
+    return (
+        <>
+            <main className="w-[100%]">
+                <h1 className="sr-only">Đăng ký - Thanh Hoa Quả</h1>
+                <RegisterClient />
+            </main>
+        </>
+    );
 }

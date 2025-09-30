@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [fullname, setFullname] = useState<string | null>("");
+    const [avatar, setAvatar] = useState<string>("");
 
     useEffect(() => {
         setFullname(localStorage.getItem("fullname") || "");
+        setAvatar(localStorage.getItem("avatar") || "");
         const token = localStorage.getItem("accessToken");
         if (token) {
             setIsLoggedIn(true);
@@ -51,6 +53,7 @@ export default function Navbar() {
                 {isLoggedIn ? (
                     <div className={styles.containerLogin}>
                         <div className={styles.profileContainer}>
+                            <img src={avatar} alt="avatar" className={styles.profileImage} />
                             <p className={styles.profileText}>Xin chào, {fullname}</p>
                         </div>
                         <div onClick={handleLogout} className={styles.logoutText}>Đăng xuất</div>

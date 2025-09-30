@@ -6,7 +6,7 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import { PlusIcon, SearchIcon, XIcon } from "lucide-react";
 import { apiAddCategory, apiGetCategories } from "../service/apiCategory";
-import { apiAddProduct, apiGetProducts, apiDeleteProduct, apiEditProduct } from "../service/apiProduct";
+import { apiAddProduct, apiDeleteProduct, apiEditProduct, apiGetAllProducts } from "../service/apiProduct";
 import Resultpopup from "./ResultPopup";
 import Select from "react-select";
 import { format, parseISO } from "date-fns";
@@ -73,7 +73,7 @@ export default function AdminProduct() {
 
     useEffect(() => {
         const getProducts = async () => {
-            const products = await apiGetProducts();
+            const products = await apiGetAllProducts();
             setProducts(products);
             setFilteredProducts(products);
         }
@@ -231,13 +231,13 @@ export default function AdminProduct() {
     }
 
     return (
-        <div className={styles.adminProductContainer}>
+        <section className={styles.adminProductContainer}>
             <Header />
             <Navbar />
-            <main className={styles.adminProductMain}>
+            <section className={styles.adminProductMain}>
                 <div className={styles.adminProductContentContainer}>
                     <div className={styles.adminProductContent}>
-                        <h1 className={styles.adminProductTitle}>Quản lý Sản phẩm</h1>
+                        <h2 className={styles.adminProductTitle}>Quản lý Sản phẩm</h2>
                         <p className={styles.adminProductDescription}>Quản lý danh mục sản phẩm của cửa hàng</p>
                     </div>
                     <div className={styles.adminProductButtonContainer}>
@@ -300,12 +300,12 @@ export default function AdminProduct() {
                         </tbody>
                     </table>
                 </div>
-            </main>
+            </section>
             <Footer />
             {isAddProduct && (
                 <div className={styles.adminProductAddProductOverlay}>
                     <div className={styles.adminProductAddProductContainer}>
-                        <h1 className={styles.adminProductAddProductTitle}>Thêm sản phẩm</h1>
+                        <h2 className={styles.adminProductAddProductTitle}>Thêm sản phẩm</h2>
                         <button className={styles.adminProductAddProductCloseButton} onClick={handleCloseAddProduct} title="Đóng">
                             <XIcon className={styles.adminProductAddProductCloseButtonIcon} />
                         </button>
@@ -334,7 +334,7 @@ export default function AdminProduct() {
             {isAddCategory && (
                 <div className={styles.adminProductAddCategoryOverlay}>
                     <div className={styles.adminProductAddCategoryContainer}>
-                        <h1 className={styles.adminProductAddCategoryTitle}>Thêm danh mục</h1>
+                        <h2 className={styles.adminProductAddCategoryTitle}>Thêm danh mục</h2>
                         <button className={styles.adminProductAddCategoryCloseButton} onClick={handleCloseAddCategory} title="Đóng">
                             <XIcon className={styles.adminProductAddCategoryCloseButtonIcon} />
                         </button>
@@ -348,7 +348,7 @@ export default function AdminProduct() {
             {isDeleteProduct && (
                 <div className={styles.adminDeleteProductOverlay}>
                     <div className={styles.adminDeleteProductContainer}>
-                        <h1 className={styles.adminDeleteProductTitle}>Bạn có chắc chắn muốn xóa sản phẩm này không?</h1>
+                        <h2 className={styles.adminDeleteProductTitle}>Bạn có chắc chắn muốn xóa sản phẩm này không?</h2>
                     </div>
                     <div className={styles.adminDeleteProductFormContainer}>
                         <button className={styles.adminDeleteProductFormButton} onClick={() => handleDeleteProductPopup(idProduct)}>Có</button>
@@ -359,7 +359,7 @@ export default function AdminProduct() {
             {isEditProduct && (
                 <div className={styles.adminEditProductOverlay}>
                     <div className={styles.adminEditProductContainer}>
-                        <h1 className={styles.adminEditProductTitle}>Chỉnh sửa sản phẩm</h1>
+                        <h2 className={styles.adminEditProductTitle}>Chỉnh sửa sản phẩm</h2>
                     </div>
                     <div className={styles.adminEditProductFormContainer}>
                         <input type="text" placeholder="Tên sản phẩm" className={styles.adminEditProductFormInput} value={nameProduct} onChange={(e) => setNameProduct(e.target.value)} />
@@ -397,6 +397,6 @@ export default function AdminProduct() {
             {isEditProductPopup && (
                 <Resultpopup message={message} show={isEditProductPopup} onClose={handleCloseEditProductPopup} />
             )}
-        </div>
+        </section>
     )
 }

@@ -21,16 +21,30 @@ export const apiAddProduct = async (name: string, price: string, unit: string, q
     }
 }
 
-export const apiGetProducts = async () => {
+export const apiGetAllProducts = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/get-products`);
+        const response = await fetch(`${API_URL}/api/get-all-products`);
         const data = await response.json();
-        console.log(data);
         if (data.success === true) {
             return data.data;
         } else {
             return "Lấy sản phẩm thất bại";
         }
+    } catch (error) {
+        console.log(error);
+        return "Lấy sản phẩm thất bại";
+    }
+}
+
+export const apiGetProduct = async (id: string) => {
+    try {
+        const response = await fetch(`${API_URL}/api/get-product`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id })
+        });
+        const data = await response.json();
+        return data.data;
     } catch (error) {
         console.log(error);
         return "Lấy sản phẩm thất bại";
@@ -74,5 +88,20 @@ export const apiEditProduct = async (id: string, name: string, price: string, un
     } catch (error) {
         console.log(error);
         return "Sửa sản phẩm thất bại";
+    }
+}
+
+export const apiGetComments = async (productId: string) => {
+    try {
+        const response = await fetch(`${API_URL}/api/get-comments`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId })
+        });
+        const data = await response.json();
+        return data.data;
+    } catch (error) {
+        console.log(error);
+        return "Lấy bình luận thất bại";
     }
 }

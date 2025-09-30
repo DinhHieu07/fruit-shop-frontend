@@ -24,5 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
-    return <LoginClient />;
+    return (
+        <>
+            <main className="w-[100%]">
+                <h1 className="sr-only">Đăng nhập - Thanh Hoa Quả</h1>
+                <LoginClient />
+            </main>
+        </>
+    );
 }

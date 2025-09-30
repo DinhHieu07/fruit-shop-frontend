@@ -3,7 +3,7 @@ import styles from "../styles/HomePage.module.css";
 import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
 import Image from 'next/image';
-import { apiGetProducts } from '../service/apiProduct';
+import { apiGetAllProducts } from '../service/apiProduct';
 
 interface DecodedToken {
   role: string;
@@ -40,13 +40,17 @@ const HomePage = () => {
   }, []);
 
   const getProducts = async () => {
-    const products = await apiGetProducts();
+    const products = await apiGetAllProducts();
     setProducts(products);
   }
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  const handleProductDetail = (product: Product) => {
+    window.location.href = `/products/${product._id}`;
+  }
 
   return (
     <div className={styles.homePageContainer}>
@@ -78,7 +82,7 @@ const HomePage = () => {
                 </div>
                 <div className={styles.storeProductItemName}>{product.name}</div>
                 <div className={styles.storeProductItemPrice}>{product.price} VND / kg</div>
-                <div className={styles.storeProductItemDetail}>Chi tiết</div>
+                <div className={styles.storeProductItemDetail} onClick={() => handleProductDetail(product)}>Chi tiết</div>
               </div>
             ))
           ))}

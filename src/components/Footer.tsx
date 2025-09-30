@@ -17,7 +17,7 @@ export default function Footer() {
                         <div className={styles.footerEmailText}>📧 Email: thanhhoaqua@gmail.com</div>
                     </div>
                     <div className={styles.footerFacebook}>
-                        <div className={styles.footerFacebookText}>🔗 Facebook: <a href="https://www.facebook.com/thanhhoaqua" target="_blank" rel="noopener noreferrer" className={styles.footerFacebookLink}>Thanh Hoa Quả</a></div>
+                        <div className={styles.footerFacebookText}>🔗 Facebook: <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className={styles.footerFacebookLink}>Thanh Hoa Quả</a></div>
                     </div>
                 </div>
                 <div className={styles.footerContainer}>

@@ -8,9 +8,12 @@ export const apiGoogleLogin = async (id_token: string) => {
         body: JSON.stringify({ id_token })
     });
     const data = await response.json();
+    console.log(data);
     if (data.success) {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("fullname", data.fullname);
+        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("avatar", data.avatar);
         window.location.href = "/";
     } else {
         throw new Error(data.message || "Đăng nhập Google thất bại");
