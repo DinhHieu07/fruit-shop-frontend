@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "icdn.dantri.com.vn",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.tienphong.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "product.hstatic.net",
+      }
     ],
   },
 };

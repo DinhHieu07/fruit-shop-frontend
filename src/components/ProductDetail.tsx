@@ -251,16 +251,33 @@ export default function ProductDetail() {
         if (replyCommentBarContent === "") return alert("Vui lòng nhập nội dung trả lời");
         setReplyCommentBar(false);
         const result = await apiReplyComment(id, currentUserId, replyCommentBarContent, replyCommentBarId);
+        console.log(result);
         if (result?.success) {
             setIsReplyCommentBarPopup(true);
             setMessage(result?.message || "Trả lời thành công");
             setReplyCommentBarContent("");
+            const newReply = {
+                ...result.data,
+                userId: {
+                    _id: currentUserId,
+                    fullname: localStorage.getItem("fullname") || "",
+                    avatar: localStorage.getItem("avatar") || "",
+                },
+            }
+            setComments((prev) => 
+                prev.map((comment) => {
+                    if (comment._id !== replyCommentBarId) return comment;
+                    const currentReplies = comment.replies || [];
+                    return {
+                        ...comment,
+                        replies: [...currentReplies, newReply],
+                        reply: currentReplies.length + 1,
+                    }
+                })
+            );
         } else {
             alert(result?.message || "Trả lời thất bại");
         }
-        setTimeout(() => {
-            window.location.reload();
-        }, 3000);
     }
 
     const handleCloseReplyCommentBarPopup = () => {
@@ -283,12 +300,20 @@ export default function ProductDetail() {
             setMessage(result?.message || "Đánh giá thành công");
             setUserRating(0);
             setUserRatingContent("");
+            setComments((prev) => [
+                ...prev, 
+                {
+                    ...result.data,
+                    userId: {
+                        _id: currentUserId,
+                        fullname: localStorage.getItem("fullname") || "",
+                        avatar: localStorage.getItem("avatar") || "",
+                    },
+                }
+            ]);
         } else {
             alert(result?.message || "Đánh giá thất bại");
         }
-        setTimeout(() => {
-            window.location.reload();
-        }, 3000);
     }
 
     return (

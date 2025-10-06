@@ -1,31 +1,27 @@
+import apiAxios from "./api";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const apiAddCategory = async (name: string) => {
     try {
-        console.log(name);
-        const response = await fetch(`${API_URL}/api/add-category`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name })
+        const response = await apiAxios.post(`${API_URL}/api/add-category`, { name }, {
+            withCredentials: true
         });
-        const data = await response.json();
-        console.log(data);
-        if (data.success === true) {
-            return data.message;
-        } else {
-            return data.message;
-        }
-    } catch (error) {
-        console.log(error);
-        return "Thêm danh mục thất bại";
+        const data = response.data;
+        return data;
+    } catch (error: any) {
+        const status = error?.response?.status;
+        const message = error?.response?.data?.message || "Thêm danh mục thất bại";
+        return { success: false, message };
     }
 }
 
 export const apiGetCategories = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/get-categories`);
-        const data = await response.json();
-        console.log(data);
+        const response = await apiAxios.get(`${API_URL}/api/get-categories`, {
+            withCredentials: true
+        });
+        const data = response.data;
         if (data.success === true) {
             return data.data;
         } else {

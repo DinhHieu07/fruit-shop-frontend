@@ -1,22 +1,34 @@
+import apiAxios from "./api";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const apiGoogleLogin = async (id_token: string) => {
-    const response = await fetch(`${API_URL}/api/google-login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ id_token })
+    try {
+    const response = await apiAxios.post(`${API_URL}/api/google-login`, { id_token }, {
+        withCredentials: true
     });
-    const data = await response.json();
-    console.log(data);
+    const data = response.data;
     if (data.success) {
-        localStorage.setItem("accessToken", data.accessToken);
+        const userData = {
+            _id: data.user_id,
+            fullname: data.fullname,
+            email: data.email,
+            role: data.role,
+            avatar: data.avatar
+        };
+        localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("fullname", data.fullname);
         localStorage.setItem("user_id", data.user_id);
         localStorage.setItem("avatar", data.avatar);
         window.location.href = "/";
-    } else {
-        throw new Error(data.message || "Đăng nhập Google thất bại");
+        } else {
+            throw new Error(data.message || "Đăng nhập Google thất bại");
+        }
+    } catch (error: any) {
+        const status = error?.response?.status;
+        const message = error?.response?.data?.message || "Đăng nhập Google thất bại";
+        alert(message);
+        return { success: false, message };
     }
 }
 

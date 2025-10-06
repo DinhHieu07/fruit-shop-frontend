@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styles from "../styles/HomePage.module.css";
-import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
 import Image from 'next/image';
 import { apiGetAllProducts } from '../service/apiProduct';
-
-interface DecodedToken {
-  role: string;
-}
+import { useAuth } from '../contexts/AuthContext';
 
 interface Product {
   _id: string;
@@ -24,20 +20,8 @@ interface Product {
 }
 
 const HomePage = () => {
-  const [role, setRole] = useState<string | null>(null);
+  const { user, isAuthenticated } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      try {
-        const decoded = jwtDecode<DecodedToken>(token || "");
-        setRole(decoded.role);
-      } catch (error) {
-        console.log("Token không hợp lệ: ", error);
-      }
-    }
-  }, []);
 
   const getProducts = async () => {
     const products = await apiGetAllProducts();
@@ -57,7 +41,7 @@ const HomePage = () => {
       <div className={styles.homePageBanner}>
         <Image src="/banner.jpg" alt="banner" className={styles.homePageImage} fill />
       </div>
-      {role === "admin" && (
+      {user?.role === "admin" && (
         <div className={styles.adminContainer}>
           <div className={styles.adminContent}>
             <Link href="/admin/products" className={styles.adminLink}>
@@ -75,6 +59,7 @@ const HomePage = () => {
         </div>
         <div className={styles.storeProductContent}>
           {products.map((product, productIndex) => (
+            console.log(product),
             product.images.map((image: string, imageIndex: number) => (
               <div key={`${productIndex}-${imageIndex}`} className={styles.storeProductItem}>
                 <div className={styles.storeProductItemWrapper}>
@@ -86,6 +71,11 @@ const HomePage = () => {
               </div>
             ))
           ))}
+        </div>
+      </div>
+      <div className={styles.storeBasketContainer}>
+        <div className={styles.storeBasketHeader}>
+          <h1 className={styles.storeBasketTitle}>Lẵng quả đẹp</h1>
         </div>
       </div>
     </div>

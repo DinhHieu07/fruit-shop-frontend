@@ -2,29 +2,35 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/NavBar.module.css";
 import { apiLogout } from "../service/apiLogout";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [fullname, setFullname] = useState<string | null>("");
-    const [avatar, setAvatar] = useState<string>("");
+    const { user, isAuthenticated, logout } = useAuth();
+    const [isProfilePopup, setIsProfilePopup] = useState(false);
 
-    useEffect(() => {
-        setFullname(localStorage.getItem("fullname") || "");
-        setAvatar(localStorage.getItem("avatar") || "");
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-            setIsLoggedIn(true);
-        }
-    }, []);
 
     const handleLogout = async () => {
         try {
-            await apiLogout();
+            const result = await apiLogout();
+            if (result.success) {
+                logout(); // Gọi logout từ context
+                window.location.href = "/";
+            } else {
+                alert(result.message);
+            }
         } catch (error) {
             console.error(error);
+            // Vẫn logout ngay cả khi API thất bại
+            logout();
+            window.location.href = "/";
         }
     }
+
+    const handleProfilePopup = () => {
+        setIsProfilePopup(!isProfilePopup);
+    }
+
     return (
         <div className={styles.navbar}>
             <h1 className={styles.logoStore} onClick={() => window.location.href = "/"}>
@@ -50,13 +56,18 @@ export default function Navbar() {
                 </ul>
             </nav>
             <section className={styles.loginContainer}>
-                {isLoggedIn ? (
+                {isAuthenticated ? (
                     <div className={styles.containerLogin}>
                         <div className={styles.profileContainer}>
-                            <img src={avatar} alt="avatar" className={styles.profileImage} />
-                            <p className={styles.profileText}>Xin chào, {fullname}</p>
+                            <img src={user?.avatar} alt="avatar" className={styles.profileImage} />
+                            <p className={styles.profileText} onClick={handleProfilePopup}>Xin chào, {user?.fullname}</p>
                         </div>
-                        <div onClick={handleLogout} className={styles.logoutText}>Đăng xuất</div>
+                        {isProfilePopup && (
+                            <div className={styles.profilePopup}>
+                                <button onClick={handleProfilePopup}>Quản lý tài khoản</button> 
+                                <button onClick={handleLogout}>Đăng xuất</button>                  
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <Link href="/login" className={styles.loginLink}>Đăng nhập</Link>

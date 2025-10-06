@@ -1,30 +1,30 @@
+import apiAxios from "./api";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const apiAddProduct = async (name: string, price: string, unit: string, quantity: string, dateCreate: string, category: string, image: string, note: string) => {
     try {
-        console.log(name);
-        const response = await fetch(`${API_URL}/api/add-product`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, price, unit, quantity, dateCreate, category, image, note })
+        const response = await apiAxios.post(`${API_URL}/api/add-product`, { name, price, unit, quantity, dateCreate, category, image, note }, {
+            withCredentials: true
         });
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
-        if (data.success === true) {
-            return data.message;
-        } else {
-            return data.message;
-        }
-    } catch (error) {
+        return data;
+    } catch (error: any) {
         console.log(error);
-        return "Thêm sản phẩm thất bại";
+        const status = error?.response?.status;
+        const message = error?.response?.data?.message || "Thêm sản phẩm thất bại";
+        console.error("Add product error", { status, message, detail: error?.response?.data });
+        return { success: false, message };
     }
 }
 
 export const apiGetAllProducts = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/get-all-products`);
-        const data = await response.json();
+        const response = await apiAxios.get(`${API_URL}/api/get-all-products`, {
+            withCredentials: true
+        });
+        const data = response.data;
         if (data.success === true) {
             return data.data;
         } else {
@@ -38,12 +38,10 @@ export const apiGetAllProducts = async () => {
 
 export const apiGetProduct = async (id: string) => {
     try {
-        const response = await fetch(`${API_URL}/api/get-product`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id })
+        const response = await apiAxios.post(`${API_URL}/api/get-product`, { id }, {
+            withCredentials: true
         });
-        const data = await response.json();
+        const data = response.data;
         return data.data;
     } catch (error) {
         console.log(error);
@@ -53,13 +51,11 @@ export const apiGetProduct = async (id: string) => {
 
 export const apiDeleteProduct = async (id: string) => {
     try {
-        const response = await fetch(`${API_URL}/api/delete-product`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id })
+        const response = await apiAxios.delete(`${API_URL}/api/delete-product`, {
+            data: { id },
+            withCredentials: true
         });
-        const data = await response.json();
-        console.log(data);
+        const data = response.data;
         if (data.success === true) {
             return data.message;
         } else {
@@ -73,13 +69,10 @@ export const apiDeleteProduct = async (id: string) => {
 
 export const apiEditProduct = async (id: string, name: string, price: string, unit: string, quantity: string, category: string, image: string, note: string) => {
     try {
-        const response = await fetch(`${API_URL}/api/edit-product`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, name, price, unit, quantity, category, image, note })
+        const response = await apiAxios.patch(`${API_URL}/api/edit-product`, { id, name, price, unit, quantity, category, image, note }, {
+            withCredentials: true
         });
-        const data = await response.json();
-        console.log(data);
+        const data = response.data;
         if (data.success === true) {
             return data.message;
         } else {
@@ -93,12 +86,10 @@ export const apiEditProduct = async (id: string, name: string, price: string, un
 
 export const apiGetComments = async (productId: string) => {
     try {
-        const response = await fetch(`${API_URL}/api/get-comments`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ productId })
+        const response = await apiAxios.post(`${API_URL}/api/get-comments`, { productId }, {
+            withCredentials: true
         });
-        const data = await response.json();
+        const data = response.data;
         return data.data;
     } catch (error) {
         console.log(error);
