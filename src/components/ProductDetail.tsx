@@ -251,7 +251,6 @@ export default function ProductDetail() {
         if (replyCommentBarContent === "") return alert("Vui lòng nhập nội dung trả lời");
         setReplyCommentBar(false);
         const result = await apiReplyComment(id, currentUserId, replyCommentBarContent, replyCommentBarId);
-        console.log(result);
         if (result?.success) {
             setIsReplyCommentBarPopup(true);
             setMessage(result?.message || "Trả lời thành công");

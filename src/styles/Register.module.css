@@ -46,6 +46,18 @@
     box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
 }
 
+.registerInputSex {
+    width: 365px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+}
+
+.registerInputSex:focus {
+    border-color: #2f9e44;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+}
+
 .registerForm {
     display: flex;
     flex-direction: column;

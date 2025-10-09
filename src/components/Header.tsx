@@ -1,11 +1,12 @@
 import styles from "../styles/Header.module.css";
+import { Input } from "@base-ui-components/react/input";
 
 export default function Header() {
     return (
         <div className={styles.header}>
             <div className={styles.logo}>🍎</div>
             <div className={styles.searchContainer}>
-                <input type="text" placeholder="Tìm kiếm sản phẩm" className={styles.searchInput} />
+                <Input type="text" placeholder="Tìm kiếm sản phẩm" className={styles.searchInput} />
                 <button type="submit" className={styles.searchButton}>🔍</button>
             </div>
             <div className={styles.hotLineContainer}>

@@ -37,6 +37,3 @@ export const apiGoogleLogin = async (id_token: string) => {
         }
     }
 }
-
-
-

@@ -59,7 +59,6 @@ const HomePage = () => {
         </div>
         <div className={styles.storeProductContent}>
           {products.map((product, productIndex) => (
-            console.log(product),
             product.images.map((image: string, imageIndex: number) => (
               <div key={`${productIndex}-${imageIndex}`} className={styles.storeProductItem}>
                 <div className={styles.storeProductItemWrapper}>

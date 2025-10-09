@@ -9,7 +9,6 @@ export const apiAddProduct = async (name: string, price: string, unit: string, q
             withCredentials: true
         });
         const data = response.data;
-        console.log(data);
         return data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

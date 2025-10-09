@@ -14,6 +14,17 @@ apiAxios.interceptors.response.use(
         const status = error?.response?.status;
         const message = error?.response?.data?.message;
 
+        if (message === "Vui lòng đăng nhập để tiếp tục" || message === "Token đã hết hạn, vui lòng đăng nhập lại") {
+            if (typeof window !== 'undefined') {
+                const currentPath = window.location.pathname;
+                const isPublicPath = currentPath === '/' || currentPath === '/login' || currentPath === '/register';
+                if (!isPublicPath) {
+                    alert("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại");
+                    window.location.href = "/login";
+                }
+            }
+        }
+
         const isAuthError = status === 401 && [
             "Token đã hết hạn, vui lòng đăng nhập lại",
             "Vui lòng đăng nhập để tiếp tục",

@@ -235,7 +235,6 @@ export default function AdminProduct() {
     }
 
     const handleEditProductPopup = async (id: string) => {
-        console.log(nameProduct, priceProduct, unitProduct, quantityProduct, categoryProduct, imageProduct, noteProduct);
         const message = await apiEditProduct(id, nameProduct, priceProduct, unitProduct, quantityProduct, categoryProduct, imageProduct, noteProduct);
         setIsEditProductPopup(true);
         setMessage(message);

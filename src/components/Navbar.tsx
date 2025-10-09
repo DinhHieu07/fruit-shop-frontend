@@ -2,13 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/NavBar.module.css";
 import { apiLogout } from "../service/apiLogout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { apiGetProfile } from "../service/apiGetProfile";
 
 export default function Navbar() {
-    const { user, isAuthenticated, logout } = useAuth();
+    const {isAuthenticated, logout } = useAuth();
     const [isProfilePopup, setIsProfilePopup] = useState(false);
-
+    const [avatar, setAvatar] = useState("");
+    const [fullname, setFullname] = useState("");
+    const [user, setUser] = useState<any>(null);
 
     const handleLogout = async () => {
         try {
@@ -30,6 +33,24 @@ export default function Navbar() {
     const handleProfilePopup = () => {
         setIsProfilePopup(!isProfilePopup);
     }
+
+    const handleProfile = () => {
+        window.location.href = "/profile";
+    }
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const result = await apiGetProfile();
+            console.log(result);
+            setUser(result);
+        }
+        fetchProfile();
+    }, []);
+
+    useEffect(() => {
+        setAvatar(user?.avatar || "");
+        setFullname(user?.fullname || "");
+    }, [user]);
 
     return (
         <div className={styles.navbar}>
@@ -59,12 +80,12 @@ export default function Navbar() {
                 {isAuthenticated ? (
                     <div className={styles.containerLogin}>
                         <div className={styles.profileContainer}>
-                            <img src={user?.avatar} alt="avatar" className={styles.profileImage} />
-                            <p className={styles.profileText} onClick={handleProfilePopup}>Xin chào, {user?.fullname}</p>
+                            <img src={avatar || user?.avatar} alt="avatar" className={styles.profileImage} />
+                            <p className={styles.profileText} onClick={handleProfilePopup}>Xin chào, {fullname}</p>
                         </div>
                         {isProfilePopup && (
                             <div className={styles.profilePopup}>
-                                <button onClick={handleProfilePopup}>Quản lý tài khoản</button> 
+                                <button onClick={handleProfile}>Quản lý tài khoản</button> 
                                 <button onClick={handleLogout}>Đăng xuất</button>                  
                             </div>
                         )}
