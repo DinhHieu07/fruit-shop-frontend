@@ -6,12 +6,24 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { apiGetProfile } from "../service/apiGetProfile";
 
+interface User {
+    _id: string;
+    fullname: string;
+    email: string;
+    role: string;
+    avatar: string;
+    phone?: string;
+    address?: string;
+    sex?: string;
+    birthdate?: string;
+}
+
 export default function Navbar() {
     const {isAuthenticated, logout } = useAuth();
     const [isProfilePopup, setIsProfilePopup] = useState(false);
     const [avatar, setAvatar] = useState("");
     const [fullname, setFullname] = useState("");
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     const handleLogout = async () => {
         try {

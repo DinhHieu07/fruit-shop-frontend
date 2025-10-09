@@ -10,8 +10,20 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import Resultpopup from "./ResultPopup";
 import { apiUpdatePassword } from "../service/apiUpdatePassword";
 
+interface User {
+    _id: string;
+    fullname: string;
+    email: string;
+    role: string;
+    avatar: string;
+    phone?: string;
+    address?: string;
+    sex?: string;
+    birthdate?: string;
+}
+
 export default function ProfileClient() {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [activeTab, setActiveTab] = useState("profile");
     const [newFullname, setNewFullname] = useState(user?.fullname || "Chưa cập nhật");
     const [newPhone, setNewPhone] = useState(user?.phone || "Chưa cập nhật");
@@ -26,7 +38,7 @@ export default function ProfileClient() {
     const [isUpdatePasswordPopup, setIsUpdatePasswordPopup] = useState(false);
     const [avatar, setAvatar] = useState(user?.avatar || "");
     const [isUpdateAvatarPopup, setIsUpdateAvatarPopup] = useState(false);
-    
+
     // Hàm format ngày tháng từ yyyy-mm-dd sang dd/mm/yyyy
     const formatDateToDisplay = (dateString: string) => {
         if (!dateString) return "";
