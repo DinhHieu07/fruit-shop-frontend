@@ -29,7 +29,7 @@ apiAxios.interceptors.response.use(
         // Cho phép thử refresh cho cả get-profile, chỉ bỏ qua chính call refresh-token
         if (isAuthError && !isRefreshCall) {
             if (!originalRequest._retry) {
-                (originalRequest as any)._retry = true;
+                originalRequest._retry = true;
                 try {
                     // Dùng axios gốc để tránh interceptor của chính nó
                     await axios.post(`${API_URL}/api/refresh-token`, {}, { withCredentials: true });
