@@ -103,8 +103,9 @@ export default function Navbar() {
     }, []);
 
     useEffect(() => {
-        const onCartUpdated = (e: any) => {
-          const newItem = e.detail.item;
+        const onCartUpdated: EventListener = (e) => {
+          const { detail } = e as CustomEvent<{ item: Item }>;
+          const newItem = detail.item;
           setCart(prev => {
             if (!prev) return { _id: "", user: user?._id || "", items: [newItem] };
             return { ...prev, items: [...(prev.items || []), newItem] };
