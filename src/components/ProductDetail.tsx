@@ -10,13 +10,16 @@ import Image from "next/image";
 import { format, parseISO } from "date-fns";
 import { apiHelpful, apiReplyComment, apiSendRating } from "../service/apiComment";
 import Resultpopup from "./ResultPopup";
+import Button from "@mui/material/Button";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { apiAddToCart } from '../service/apiCart';
 
 interface Product {
     _id: string;
     name: string;
     price: number;
     unit: string;
-    quantity: number;
+    quantity: number | undefined;
     createdAt: string;
     category: string;
     images: string[];
@@ -81,8 +84,10 @@ export default function ProductDetail() {
     const [userRating, setUserRating] = useState<number>(0);
     const [hoverRating, setHoverRating] = useState<number>(0);
     const [userRatingContent, setUserRatingContent] = useState<string>("");
-
+    const [productQuantity, setProductQuantity] = useState<number>(1);
+    const [inputValue, setInputValue] = useState<string>("1");
     const imageURL = product?.images[0] || "";
+    const [isAddToCartPopup, setIsAddToCartPopup] = useState<boolean>(false);
 
     const renderStars = (count: number) => {
         const safeCount = Math.max(0, Math.min(5, Number(count) || 0));
@@ -263,7 +268,7 @@ export default function ProductDetail() {
                     avatar: localStorage.getItem("avatar") || "",
                 },
             }
-            setComments((prev) => 
+            setComments((prev) =>
                 prev.map((comment) => {
                     if (comment._id !== replyCommentBarId) return comment;
                     const currentReplies = comment.replies || [];
@@ -300,7 +305,7 @@ export default function ProductDetail() {
             setUserRating(0);
             setUserRatingContent("");
             setComments((prev) => [
-                ...prev, 
+                ...prev,
                 {
                     ...result.data,
                     userId: {
@@ -313,6 +318,23 @@ export default function ProductDetail() {
         } else {
             alert(result?.message || "Đánh giá thất bại");
         }
+    }
+
+    const handleAddToCart = async () => {
+        if (!currentUserId) return alert("Vui lòng đăng nhập để thêm vào giỏ hàng");
+        const result = await apiAddToCart(id, currentUserId, productQuantity);
+        if (result?.success) {
+            setIsAddToCartPopup(true);
+            setMessage(result?.message || "Thêm vào giỏ hàng thành công");
+            window.dispatchEvent(new CustomEvent("cart:updated", { detail: { item: product } }));
+        } else {
+            alert(result?.message || "Thêm vào giỏ hàng thất bại");
+        }
+    }
+
+    const handleCloseAddToCartPopup = () => {
+        setIsAddToCartPopup(false);
+        setMessage("");
     }
 
     return (
@@ -331,6 +353,56 @@ export default function ProductDetail() {
                     <h4 className={styles.productDetailMainContentPrice}>{product?.price} VND / kg</h4>
                     <p className={styles.productDetailMainContentNote}>Mô tả: {product?.description}</p>
                     <p className={styles.productDetailMainContentContact}>(Giá chỉ mang tính chất tham khảo. Vui lòng liên hệ hotline: 0855491578 để được cập nhật bảng giá theo ngày)</p>
+                    <div className={styles.productDetailMainContentNumber}>
+                        <p className={styles.productDetailMainContentNumberText}>Số lượng:</p>
+                        <button className={styles.productDetailMainContentNumberButton} onClick={() => {
+                            if (productQuantity > 1) {
+                                const newQuantity = productQuantity - 1;
+                                setProductQuantity(newQuantity);
+                                setInputValue(newQuantity.toString());
+                            }
+                        }}>-</button>
+                        <input type="number" className={styles.productDetailMainContentNumberInput} value={inputValue} min={1} max={product?.quantity || 1} onChange={(e) => {
+                            setInputValue(e.target.value);
+                        }} onBlur={(e) => {
+                            const value = e.target.value;
+                            if (value === "") {
+                                setProductQuantity(1);
+                                setInputValue("1");
+                                return;
+                            }
+                            const numValue = Number(value);
+                            if (isNaN(numValue) || numValue < 1) {
+                                setProductQuantity(1);
+                                setInputValue("1");
+                            } else if (numValue > (product?.quantity || 0)) {
+                                setProductQuantity(product?.quantity || 1);
+                                setInputValue((product?.quantity || 1).toString());
+                            } else {
+                                setProductQuantity(numValue);
+                                setInputValue(numValue.toString());
+                            }
+                        }} />
+                        <button className={styles.productDetailMainContentNumberButton} onClick={() => {
+                            if (productQuantity < (product?.quantity || 0)) {
+                                const newQuantity = productQuantity + 1;
+                                setProductQuantity(newQuantity);
+                                setInputValue(newQuantity.toString());
+                            }
+                        }}>+</button>
+                        <p className={styles.productDetailMainContentNumberAvailable}>{product?.quantity ? `(Cửa hàng còn ${product?.quantity} sản phẩm)` : `(Hết hàng)`}</p>
+                    </div>
+                    <div className={styles.productDetailMainContentAddToCart}>
+                        <Button
+                            className={styles.productDetailMainContentAddToCartButton}
+                            variant="outlined"
+                            sx={{ borderColor: "#4CAF50", color: "#4CAF50" }}
+                            startIcon={<AddShoppingCartIcon />}
+                            onClick={() => handleAddToCart()}
+                        >
+                            Thêm vào giỏ hàng
+                        </Button>
+                    </div>
                 </div>
             </div>
             <div className={styles.productDetailLine}></div>
@@ -469,6 +541,9 @@ export default function ProductDetail() {
             )}
             {isRatingPopup && (
                 <Resultpopup message={message} show={isRatingPopup} onClose={handleCloseRatingPopup} />
+            )}
+            {isAddToCartPopup && (
+                <Resultpopup message={message} show={isAddToCartPopup} onClose={handleCloseAddToCartPopup} />
             )}
         </section>
     )

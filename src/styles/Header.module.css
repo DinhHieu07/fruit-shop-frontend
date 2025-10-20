@@ -2,7 +2,7 @@
     background-color: #4CAF50;
     color: white;
     display: flex;
-    width: 70%;
+    width: 80%;
     height: 60%;
 }
 
@@ -28,6 +28,10 @@
     padding: 5px;
     border: 1px solid #4CAF50;
     border-radius: 5px;
+}
+
+.searchInput:focus {
+    outline: none;
 }
 
 .searchButton {

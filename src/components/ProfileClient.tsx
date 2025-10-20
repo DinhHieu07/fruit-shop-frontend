@@ -29,7 +29,7 @@ export default function ProfileClient() {
     const [newPhone, setNewPhone] = useState(user?.phone || "Chưa cập nhật");
     const [newAddress, setNewAddress] = useState(user?.address || "Chưa cập nhật");
     const [newSex, setNewSex] = useState(user?.sex || "");
-    const [newBirthdate, setNewBirthdate] = useState(user?.birthdate || "");
+    const [birthdateInput, setBirthdateInput] = useState("");
     const [isUpdateProfilePopup, setIsUpdateProfilePopup] = useState(false);
     const [message, setMessage] = useState("");
     const [oldPassword, setOldPassword] = useState("");
@@ -65,7 +65,8 @@ export default function ProfileClient() {
     const checkInfo = () => {
         const regexPhone = new RegExp("^0[0-9]{9}$");
         const regexBirthdate = new RegExp("^[0-9]{2}/[0-9]{2}/[0-9]{4}$");
-        if (newFullname === "" || newPhone === "" || newAddress === "" || newBirthdate === "" || newSex === "") {
+        console.log(newFullname, newPhone, newAddress, birthdateInput, newSex);
+        if (newFullname === "" || newPhone === "" || newAddress === "" || birthdateInput === "" || newSex === "") {
             alert("Vui lòng nhập đầy đủ thông tin");
             return false;
         }
@@ -73,8 +74,10 @@ export default function ProfileClient() {
             alert("Vui lòng nhập đúng định dạng số điện thoại");
             return false;
         }
-        const formattedBirthdate = formatDateToDisplay(newBirthdate);
-        if (!regexBirthdate.test(formattedBirthdate)) {
+        // Chấp nhận cả dd/mm/yyyy và yyyy-mm-dd trên ô nhập
+        const isDdMmYyyy = regexBirthdate.test(birthdateInput);
+        const isYyyyMmDd = /^\d{4}-\d{2}-\d{2}$/.test(birthdateInput);
+        if (!(isDdMmYyyy || isYyyyMmDd)) {
             alert("Vui lòng nhập đúng định dạng ngày sinh");
             return false;
         }
@@ -94,7 +97,7 @@ export default function ProfileClient() {
         setNewPhone(user?.phone || "Chưa cập nhật");
         setNewAddress(user?.address || "Chưa cập nhật");
         setNewSex(user?.sex || "");
-        setNewBirthdate(user?.birthdate || "");
+        setBirthdateInput(formatDateToDisplay(user?.birthdate || ""));
         setAvatar(user?.avatar || "");
     }, [user]);
 
@@ -102,7 +105,7 @@ export default function ProfileClient() {
         if (!checkInfo()) return;
         try {
             // Chuyển đổi birthdate từ dd/mm/yyyy sang yyyy-mm-dd trước khi gửi lên server
-            const formattedBirthdate = formatDateForServer(newBirthdate);
+            const formattedBirthdate = formatDateForServer(birthdateInput);
 
             const result = await apiUpdateProfile(newFullname, newPhone, newAddress, formattedBirthdate, newSex);
             if (result.success) {
@@ -240,13 +243,13 @@ export default function ProfileClient() {
                             <div className={styles.profileMainInfo}>
                                 <label className={styles.profileMainInfoLabel}>Ngày sinh</label>
                                 <TextField
-                                    type="text"
+                                    type="date"
                                     className={styles.profileMainInfoInput}
-                                    value={formatDateToDisplay(newBirthdate)}
-                                    title={formatDateToDisplay(newBirthdate)}
+                                    value={birthdateInput}
+                                    title={birthdateInput}
                                     variant="outlined"
                                     onChange={(e) => {
-                                        setNewBirthdate(e.target.value);
+                                        setBirthdateInput(e.target.value);
                                     }}
                                     placeholder="dd/mm/yyyy"
                                 />

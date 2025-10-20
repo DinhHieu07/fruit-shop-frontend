@@ -8,7 +8,7 @@
 }
 
 .productDetailMain {
-    width: 70%;
+    width: 80%;
     min-height: 100%;
     flex-direction: row;
     display: flex;
@@ -41,6 +41,8 @@
     font-weight: 600;
     cursor: pointer;
     border: 1px solid #4CAF50;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .productDetailBackButton:hover {
@@ -74,15 +76,73 @@
     font-style: italic;
 }
 
+.productDetailMainContentNumber {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.productDetailMainContentNumberText {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.productDetailMainContentNumberButton {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+}
+
+.productDetailMainContentNumberInput {
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #4CAF50;
+    width: 50px;
+    text-align: center;
+}
+
+.productDetailMainContentNumberInput:focus {
+    outline: none;
+}
+
+.productDetailMainContentNumberInput::-webkit-outer-spin-button,
+.productDetailMainContentNumberInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.productDetailMainContentNumberAvailable {
+    font-size: 16px;
+    color: #333;
+    margin-left: 10px;
+}
+
+.productDetailMainContentAddToCart {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.productDetailMainContentAddToCartButton {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+}
+
 .productDetailLine {
-    width: 70%;
+    width: 80%;
     margin-bottom: 20px;
     background-color: #333;
     border: 1px solid #a3a3a3;
 }
 
 .productDetailComment {
-    width: 70%;
+    width: 80%;
     height: 100%;
 }
 
@@ -103,7 +163,7 @@
 }
 
 .productDetailCommentStar {
-    width: 70%;
+    width: 80%;
     height: 100%;
     margin-top: 20px;
     justify-content: flex-start;
@@ -132,7 +192,7 @@
 }
 
 .productDetailCommentStarLine {
-    width: 70%;
+    width: 80%;
     margin-bottom: 20px;
     background-color: #333;
     border: 1px solid #a3a3a3;
@@ -197,7 +257,7 @@
 }
 
 .productDetailCommentStarOption {
-    width: 70%;
+    width: 80%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -237,12 +297,12 @@
     border: 1px solid #333;
     border-radius: 10px;
     margin-bottom: 20px;
-    width: 70%;
+    width: 80%;
     height: 100%;
 }
 
 .productDetailCommentReply {
-    width: calc(70% - 50px);
+    width: calc(80% - 50px);
     margin-left: 50px;
 }
 
@@ -422,7 +482,7 @@
 
 .productDetailCommentLine {
     margin-top: 20px;
-    width: 70%;
+    width: 80%;
     height: 1px;
     background-color: #a3a3a3;
     margin-bottom: 20px;
@@ -432,7 +492,7 @@
 }
 
 .productDetailCommentSelf {
-    width: 70%;
+    width: 80%;
     height: 100%;
     display: flex;
     flex-direction: column;

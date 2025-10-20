@@ -1,0 +1,328 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartPageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartPageHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartPageBrandTitle {
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.cartPageSearchContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartPageSearchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #4CAF50;
+    outline: none;
+}
+
+.cartPageSearchIcon {
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    height: 36px !important;
+    width: 36px !important;
+}
+
+.cartPageContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(226, 226, 226);
+    border-radius: 10px;
+    padding:  0 20px;
+    box-sizing: border-box;
+}
+
+.cartPageContentHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartPageContentTitle {
+    font-size: 20px;
+}
+
+.cartPageContentInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartPageContentInfoTitle {
+    font-size: 16px;
+    list-style: none;
+}
+
+.cartPageContentList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 500px;
+    margin-bottom: 20px;
+}
+
+.cartPageContentListItems {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-inline-start: 0 !important;
+    background-color: rgb(226, 226, 226);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.cartPageContentListItemsItem {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.cartPageContentListItemsItemCheckbox {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4CAF50;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
+}
+
+.cartPageContentListItemsItemSelected {
+    background-color: rgb(120, 233, 120) !important;
+    border-radius: 10px !important;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.cartPageContentListItemsEmpty {
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.cartPageContentListItemsItemImage {
+    width: 150px;
+    height: 70px;
+    border: 1px solid #4CAF50;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cartPageContentListItemsItemContent {
+    width: 100%;
+    display: flex;
+    flex-direction: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.cartPageContentListItemsItemContentName {
+    font-size: 16px;
+    color: #333;
+    width: 58%;
+    display: flex;
+    align-items: center;
+}
+
+.cartPageContentListItemsItemContentPrice {
+    font-size: 16px;
+    color: #333;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.cartPageContentListItemsItemQuantity {
+    font-size: 16px;
+    color: #333;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.cartPageContentListItemsItemTotalPrice {
+    font-size: 16px;
+    color: #333;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.cartPageContentListItemsItemAction {
+    font-size: 16px;
+    color: #333;
+    width: 55%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cartPageTotal {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.cartPageTotalSelectAll {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cartPageTotalSelectAllInput {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #4CAF50;
+    border-radius: 10px;
+    margin-right: 20px !important;
+    cursor: pointer;
+}
+
+.cartPageTotalDeleteSelected {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 20px;
+}
+
+.cartPageTotalPrice {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cartPageTotalButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.confirmDelete, .confirmDeleteAll {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.confirmDeleteContent, .confirmDeleteAllContent {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.confirmDeleteFormContainer, .confirmDeleteAllFormContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmDeleteTitle, .confirmDeleteAllTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.confirmDeleteFormContainer, .confirmDeleteAllFormContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartPageButton {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+.cartPageButtonDelete {
+    background-color: #ef4444 !important;
+    color: white !important;
+}

@@ -2,9 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/NavBar.module.css";
 import { apiLogout } from "../service/apiLogout";
-import { useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { apiGetProfile } from "../service/apiGetProfile";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import { apiGetCart } from "../service/apiCart";
+import MiniCart from "./MiniCart";
 
 interface User {
     _id: string;
@@ -18,12 +23,37 @@ interface User {
     birthdate?: string;
 }
 
+interface Cart {
+    _id: string;
+    user: string;
+    items: Item[];
+}
+
+interface Item {
+    _id: string;
+    product: string;
+    name: string;
+    price: number;
+    quantity: number;
+    unit: string;
+}
+
 export default function Navbar() {
-    const {isAuthenticated, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
     const [isProfilePopup, setIsProfilePopup] = useState(false);
     const [avatar, setAvatar] = useState("");
     const [fullname, setFullname] = useState("");
     const [user, setUser] = useState<User | null>(null);
+    const [cart, setCart] = useState<Cart | null>(null);
+    const [isMiniCartPopup, setIsMiniCartPopup] = useState(false);
+
+    const openMiniCart = () => {
+        setIsMiniCartPopup(true);
+    };
+
+    const closeMiniCart = () => {
+        setIsMiniCartPopup(false);
+    };
 
     const handleLogout = async () => {
         try {
@@ -53,7 +83,6 @@ export default function Navbar() {
     useEffect(() => {
         const fetchProfile = async () => {
             const result = await apiGetProfile();
-            console.log(result);
             setUser(result);
         }
         fetchProfile();
@@ -63,6 +92,26 @@ export default function Navbar() {
         setAvatar(user?.avatar || "");
         setFullname(user?.fullname || "");
     }, [user]);
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            const result = await apiGetCart();
+            setCart(result.data);
+        }
+        fetchCart();
+    }, []);
+
+    useEffect(() => {
+        const onCartUpdated = (e: any) => {
+          const newItem = e.detail.item;
+          setCart(prev => {
+            if (!prev) return { _id: "", user: user?._id || "", items: [newItem] };
+            return { ...prev, items: [...(prev.items || []), newItem] };
+          });
+        };
+        window.addEventListener("cart:updated", onCartUpdated);
+        return () => window.removeEventListener("cart:updated", onCartUpdated);
+      }, [user]);
 
     return (
         <div className={styles.navbar}>
@@ -87,6 +136,16 @@ export default function Navbar() {
                         <Link href="/" className={styles.menuLink}>Liên hệ</Link>
                     </li>
                 </ul>
+                <div className={styles.cartContainer} onMouseEnter={openMiniCart} onMouseLeave={closeMiniCart}>
+                    <IconButton aria-label="cart" >
+                        <Badge badgeContent={cart?.items?.length || 0} sx={{ "& .MuiBadge-badge": { backgroundColor: "#4CAF50", color: "#ffffff" } }} showZero>
+                            <ShoppingCartOutlinedIcon fontSize="large" />
+                        </Badge>
+                    </IconButton>
+                    {isMiniCartPopup && (
+                        <MiniCart items={cart?.items || []} />
+                    )}
+                </div>
             </nav>
             <section className={styles.loginContainer}>
                 {isAuthenticated ? (
@@ -97,8 +156,8 @@ export default function Navbar() {
                         </div>
                         {isProfilePopup && (
                             <div className={styles.profilePopup}>
-                                <button onClick={handleProfile}>Quản lý tài khoản</button> 
-                                <button onClick={handleLogout}>Đăng xuất</button>                  
+                                <button onClick={handleProfile}>Quản lý tài khoản</button>
+                                <button onClick={handleLogout}>Đăng xuất</button>
                             </div>
                         )}
                     </div>

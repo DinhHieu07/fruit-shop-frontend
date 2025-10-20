@@ -3,9 +3,9 @@ import apiAxios from "./api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const apiAddProduct = async (name: string, price: string, unit: string, quantity: string, dateCreate: string, category: string, image: string, note: string) => {
+export const apiAddProduct = async (name: string, price: string, unit: string, quantity: string, dateCreate: string, category: string, image: string, note: string, description: string) => {
     try {
-        const response = await apiAxios.post(`${API_URL}/api/add-product`, { name, price, unit, quantity, dateCreate, category, image, note }, {
+        const response = await apiAxios.post(`${API_URL}/api/add-product`, { name, price, unit, quantity, dateCreate, category, image, note, description }, {
             withCredentials: true
         });
         const data = response.data;
@@ -71,9 +71,9 @@ export const apiDeleteProduct = async (id: string) => {
     }
 }
 
-export const apiEditProduct = async (id: string, name: string, price: string, unit: string, quantity: string, category: string, image: string, note: string) => {
+export const apiEditProduct = async (id: string, name: string, price: string, unit: string, quantity: string, category: string, image: string, note: string, description: string) => {
     try {
-        const response = await apiAxios.patch(`${API_URL}/api/edit-product`, { id, name, price, unit, quantity, category, image, note }, {
+        const response = await apiAxios.patch(`${API_URL}/api/edit-product`, { id, name, price, unit, quantity, category, image, note, description }, {
             withCredentials: true
         });
         const data = response.data;

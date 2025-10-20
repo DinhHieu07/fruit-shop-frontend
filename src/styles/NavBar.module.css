@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     gap: 20px;
 }
@@ -38,6 +38,15 @@
     height: 100%;
     font-size: 20px;
     font-weight: bold;
+}
+
+.cartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: 100%;
+    position: relative;
 }
 
 .loginContainer {
@@ -119,8 +128,8 @@
 
 .profilePopup {
     position: absolute;
-    top: 15%;
-    right: 15%;
+    top: 120px;
+    right: 170px;
     margin-top: 8px;
     display: flex;
     flex-direction: column;

@@ -17,7 +17,7 @@
 
 .adminProductContentContainer {
     display: flex;
-    width: 70%;
+    width: 80%;
     flex-direction: row;
     background-color: rgb(226, 226, 226);
     border-radius: 0.5rem;
@@ -81,7 +81,7 @@
 .adminProductSearchContainer {
     position: relative;
     display: flex;
-    width: 70%;
+    width: 80%;
     flex-direction: row;
     background-color: rgb(226, 226, 226);
     border-radius: 0.5rem;
@@ -109,7 +109,7 @@
 
 .adminProductTableContainer {
     display: flex;
-    width: 70%;
+    width: 80%;
     flex-direction: column;
     background-color: rgb(226, 226, 226);
     border-radius: 0.5rem;
@@ -274,7 +274,7 @@
 }
 
 .adminProductAddProductFormContainer {
-    width: 70%;
+    width: 80%;
     max-width: 900px;
     background: #ffffff;
     border-radius: 0.5rem;
@@ -473,7 +473,7 @@
 }
 
 .adminEditProductFormContainer {
-    width: 70%;
+    width: 80%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
@@ -514,7 +514,7 @@
 }
 
 .adminEditProductFormButtonContainer {
-    width: 70%;
+    width: 80%;
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -551,7 +551,7 @@
 
 .wrapper {
     width: 100%;
-    margin-top: 8px;
+    margin-top: 32px;
     margin-left: 8px;
     padding-right: 14px;
     box-sizing: border-box;
