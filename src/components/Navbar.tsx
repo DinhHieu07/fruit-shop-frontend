@@ -36,6 +36,7 @@ interface Item {
     price: number;
     quantity: number;
     unit: string;
+    images: string;
 }
 
 export default function Navbar() {
@@ -143,7 +144,7 @@ export default function Navbar() {
                         </Badge>
                     </IconButton>
                     {isMiniCartPopup && (
-                        <MiniCart items={cart?.items || []} />
+                        <MiniCart items={cart?.items.map((item) => ({ _id: item._id, name: item.name, price: item.price, quantity: item.quantity, images: item.images || "" })) || []} />
                     )}
                 </div>
             </nav>

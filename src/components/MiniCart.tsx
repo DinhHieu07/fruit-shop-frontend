@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import styles from "../styles/MiniCart.module.css";
 import { useEffect, useState } from "react";
 
-export default function MiniCart({ items }: { items: any[] }) {
+export default function MiniCart({ items }: { items: { _id: string, name: string, price: number, quantity: number, images: string }[] }) {
     const [priceEachProduct, setPriceEachProduct] = useState<number[]>([]);
     useEffect(() => {
         setPriceEachProduct(items.map((item) => item.price * item.quantity));
